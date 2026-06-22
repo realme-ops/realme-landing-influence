@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>예약하기 — REAL ME × 사소남</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root {
+  --bg: #F4F5F7;
+  --surface: #FFFFFF;
+  --coral: #F86C5D;
+  --coral-dark: #F4566B;
+  --coral-light: #FF8073;
+  --coral-grad: linear-gradient(135deg, #FF8073 0%, #F4566B 100%);
+  --coral-dim: #FFECE9;
+  --coral-border: rgba(248,108,93,0.30);
+  --ink: #2B2D42;
+  --gray: #6E7280;
+  --gray-light: #9AA0AC;
+  --border: #ECEEF1;
+  --amber: #FFB400;
+  --shadow-sm: 0 2px 10px rgba(43,45,66,0.05);
+  --shadow-md: 0 8px 28px rgba(43,45,66,0.07);
+  --font-logo: 'Libre Bodoni', serif;
+  --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  --maxw: 480px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html, body { overflow-x: hidden; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-weight: 400; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+
+nav { background: var(--surface); border-bottom: 1px solid var(--border); height: 56px; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 100; }
+.nav-logo { font-family: var(--font-logo); font-size: 17px; font-weight: 700; letter-spacing: 0.12em; color: var(--ink); text-decoration: none; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 28px 20px 100px; }
+
+.eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: var(--coral); background: var(--coral-dim); padding: 5px 12px; border-radius: 20px; margin-bottom: 14px; }
+.title { font-size: 24px; font-weight: 800; line-height: 1.4; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.02em; }
+.title .hl { color: var(--coral); }
+.subtitle { font-size: 14px; color: var(--gray); margin-bottom: 28px; line-height: 1.7; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+
+/* 혜택 박스 */
+.benefit-card { background: var(--coral-dim); border: 1px solid var(--coral-border); border-radius: 16px; padding: 18px 20px; margin-bottom: 16px; }
+.benefit-title { font-size: 13px; font-weight: 800; color: var(--coral-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.benefit-item { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; }
+.benefit-icon { font-size: 16px; flex-shrink: 0; }
+.benefit-text { font-size: 13px; color: var(--ink); line-height: 1.6; }
+.benefit-text strong { font-weight: 700; color: var(--coral-dark); }
+
+/* 예약금 배너 */
+.deposit { background: var(--coral-grad); border-radius: 16px; padding: 22px; margin-bottom: 16px; color: #fff; }
+.deposit-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.9; margin-bottom: 6px; }
+.deposit-amount { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+.deposit-desc { font-size: 13px; line-height: 1.7; opacity: 0.95; }
+.deposit-desc strong { font-weight: 700; }
+
+/* 폼 */
+.form-label-sec { font-size: 12px; font-weight: 800; color: var(--ink); margin-bottom: 14px; letter-spacing: -0.01em; }
+.form-group { margin-bottom: 14px; }
+.form-label { display: block; font-size: 12px; font-weight: 700; color: var(--gray); margin-bottom: 7px; }
+.form-input { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 13px 15px; font-family: var(--font-body); font-size: 15px; color: var(--ink); outline: none; transition: border-color 0.15s; }
+.form-input::placeholder { color: var(--gray-light); }
+.form-input:focus { border-color: var(--coral); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.consent { display: flex; align-items: flex-start; gap: 9px; margin-top: 4px; cursor: pointer; }
+.consent input { width: 17px; height: 17px; accent-color: var(--coral); flex-shrink: 0; margin-top: 2px; }
+.consent-text { font-size: 12px; color: var(--gray); line-height: 1.6; }
+.consent-text strong { color: var(--ink); font-weight: 700; }
+
+.btn { display: block; width: 100%; background: var(--coral-grad); color: #fff; border: none; border-radius: 12px; padding: 17px; font-family: var(--font-body); font-size: 16px; font-weight: 800; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; margin-top: 18px; box-shadow: 0 6px 18px rgba(244,86,107,0.30); }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(244,86,107,0.38); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.btn-note { text-align: center; font-size: 12px; color: var(--gray-light); margin-top: 10px; }
+
+.err { font-size: 12px; color: var(--coral-dark); margin-top: 5px; display: none; }
+.err.show { display: block; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 7px; }
+
+.caution { list-style: none; font-size: 12px; color: var(--gray-light); line-height: 1.9; margin-top: 4px; }
+.caution li { padding-left: 14px; position: relative; }
+.caution li::before { content: "·"; position: absolute; left: 4px; color: var(--coral); }
+.divider { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+</style>
+</head>
+<body>
+
+<nav><a href="/" class="nav-logo">REAL ME</a></nav>
+
+<div class="wrap">
+
+  <span class="eyebrow">사소남 제휴 한정 특가</span>
+  <h1 class="title">바뀐 내 모습,<br><span class="hl">소개팅</span>부터 달라집니다</h1>
+  <p class="subtitle">2,000명이 먼저 경험한 퍼스널 스타일링.<br>예약자 정보를 입력하고 특가 혜택을 받으세요.</p>
+
+  <!-- 혜택 -->
+  <div class="benefit-card">
+    <div class="benefit-title">🎁 사소남 전용 혜택</div>
+    <div class="benefit-item">
+      <span class="benefit-icon">💇</span>
+      <span class="benefit-text">촬영 전 <strong>헤어 &amp; 메이크업</strong> 스타일링</span>
+    </div>
+    <div class="benefit-item">
+      <span class="benefit-icon">📸</span>
+      <span class="benefit-text">비포&amp;애프터 <strong>인생 샷 촬영</strong> (프로필·소장용)</span>
+    </div>
+    <div class="benefit-item">
+      <span class="benefit-icon">🎟️</span>
+      <span class="benefit-text"><strong>20만 원 웰컴 쇼룸 포인트</strong> 즉시 지급 (본사 전액 지원)</span>
+    </div>
+  </div>
+
+  <!-- 예약금 -->
+  <div class="deposit">
+    <div class="deposit-label">Reservation Deposit</div>
+    <div class="deposit-amount">50,000원</div>
+    <div class="deposit-desc">
+      예약금 결제 후 <strong>카카오톡으로 사전질의서 링크</strong>가 전달됩니다.<br>
+      사전질의서에서 방문 희망 일정을 선택하면 예약 완료!
+    </div>
+  </div>
+
+  <!-- 폼 -->
+  <div class="card">
+    <p class="form-label-sec">예약자 정보 입력</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="input-name">이름</label>
+        <input class="form-input" type="text" id="input-name" placeholder="홍길동" autocomplete="name">
+        <p class="err" id="err-name">이름을 입력해주세요</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="input-age">나이</label>
+        <input class="form-input" type="number" id="input-age" placeholder="28" min="15" max="80" inputmode="numeric">
+        <p class="err" id="err-age">나이를 입력해주세요</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="input-phone">연락처</label>
+      <input class="form-input" type="tel" id="input-phone" placeholder="010-1234-5678" autocomplete="tel" inputmode="tel">
+      <p class="err" id="err-phone">올바른 연락처를 입력해주세요</p>
+    </div>
+
+    <label class="consent" for="input-consent">
+      <input type="checkbox" id="input-consent">
+      <span class="consent-text">예약금 환불은 <strong>방문 3일 전까지</strong> 가능하며, 이후에는 환불이 어렵습니다. 사전질의서 미제출 시 서비스 진행이 어렵습니다.</span>
+    </label>
+    <p class="err" id="err-consent">안내 사항에 동의해주세요</p>
+
+    <button class="btn" id="btn-reserve" type="button">예약금 50,000원 결제하기 →</button>
+    <p class="btn-note">결제 후 카카오톡으로 사전질의서 링크가 발송됩니다</p>
+  </div>
+
+  <hr class="divider">
+  <ul class="caution">
+    <li>예약금은 서비스 이용 금액에서 차감됩니다</li>
+    <li>본 플랜은 평일 전용 예약 상품입니다 (주말 예약 불가)</li>
+    <li>웰컴 포인트는 1인 1회 제공되며 타 프로모션과 중복 불가</li>
+    <li>방문 3일 전까지 취소 시 전액 환불, 이후 환불 불가</li>
+    <li>결제 완료 후 사전질의서 링크 발송까지 최대 10분 소요</li>
+  </ul>
+
+</div>
+
+<script>
+// 인플루언서별 예약금 (랜딩과 동일하게 유지)
+const INFLUENCER_DEPOSIT = {
+  sasonam: 50000,
+  // honggildong: 30000,
+};
+const DEFAULT_DEPOSIT = 20000;
+
+function getInflowInfo() {
+  const p = new URLSearchParams(window.location.search);
+  // influencer 파라미터 우선, 없으면 ref
+  const inf = (p.get('influencer') || p.get('ref') || '').toLowerCase();
+  const source = (p.get('source') || p.get('utm_source') || '').toLowerCase();
+  const map = { influencer:'influencer', instagram:'sns', youtube:'sns', facebook:'sns', blog:'blog', naver:'blog', referral:'referral', homepage:'homepage' };
+  const channel = inf ? 'influencer' : (map[source] || 'sns');
+  const deposit = INFLUENCER_DEPOSIT[inf] || DEFAULT_DEPOSIT;
+  return { channel, ref: inf, deposit };
+}
+
+// 페이지 로드 시 예약금 금액 표시 동기화
+(function syncDeposit() {
+  const { deposit } = getInflowInfo();
+  const won = deposit.toLocaleString('ko-KR');
+  document.addEventListener('DOMContentLoaded', function() {
+    const amtEl = document.querySelector('.deposit-amount');
+    if (amtEl) amtEl.textContent = won + '원';
+    const btn = document.getElementById('btn-reserve');
+    if (btn) btn.textContent = '예약금 ' + won + '원 결제하기 →';
+  });
+})();
+
+document.getElementById('input-phone').addEventListener('input', function(e) {
+  let v = e.target.value.replace(/\D/g,'').slice(0,11);
+  if (v.length > 7) v = v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7);
+  else if (v.length > 3) v = v.slice(0,3)+'-'+v.slice(3);
+  e.target.value = v;
+});
+
+function showErr(id, s) { document.getElementById(id).classList.toggle('show', s); }
+
+function validate() {
+  const name = document.getElementById('input-name').value.trim();
+  const age = document.getElementById('input-age').value.trim();
+  const phone = document.getElementById('input-phone').value.replace(/-/g,'');
+  const consent = document.getElementById('input-consent').checked;
+  let ok = true;
+  if (!name) { showErr('err-name', true); ok = false; } else showErr('err-name', false);
+  if (!age || age < 15 || age > 80) { showErr('err-age', true); ok = false; } else showErr('err-age', false);
+  if (!/^01[0-9]{8,9}$/.test(phone)) { showErr('err-phone', true); ok = false; } else showErr('err-phone', false);
+  if (!consent) { showErr('err-consent', true); ok = false; } else showErr('err-consent', false);
+  return ok;
+}
+
+document.getElementById('btn-reserve').addEventListener('click', async function() {
+  if (!validate()) return;
+  const name = document.getElementById('input-name').value.trim();
+  const age = document.getElementById('input-age').value.trim();
+  const phone = document.getElementById('input-phone').value.replace(/-/g,'');
+  const btn = document.getElementById('btn-reserve');
+  const { channel, ref } = getInflowInfo();
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>결제창 연결 중...';
+
+  try {
+    const res = await fetch('https://npjudvehidwjofnmsdos.supabase.co/functions/v1/create-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, age, phone, inflow_channel: channel, inflow_detail: ref }),
+    });
+    const result = await res.json();
+    if (!res.ok || !result.payurl) {
+      alert(result.error || '결제 요청 중 오류가 발생했습니다. 다시 시도해주세요.');
+      return;
+    }
+    window.location.href = result.payurl;
+  } catch(e) {
+    console.error(e);
+    alert('결제창 연결 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+  } finally {
+    setTimeout(function() {
+      btn.disabled = false;
+      btn.innerHTML = '예약금 50,000원 결제하기 →';
+    }, 3000);
+  }
+});
+</script>
+</body>
+</html>
